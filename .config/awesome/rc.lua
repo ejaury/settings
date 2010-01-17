@@ -97,11 +97,11 @@ memwidget = widget({ type = "textbox" })
 -- Register widget
 -- Format: MemUsage / TotalMem
 -- updated every 15 secs
-vicious.register(memwidget, vicious.widgets.mem, "$2MB/$3MB", 15)
+vicious.register(memwidget, vicious.widgets.mem, "$2MB", 15)
 
 -- Battery widget
 batwidget = widget({ type = "textbox" })
-vicious.register(batwidget, vicious.widgets.bat, "$1 | $2 | $3", 60, "BAT0") 
+vicious.register(batwidget, vicious.widgets.bat, "$2% | $3", 60, "BAT0") 
 
 -- CPU usage widget
 cpuwidget = awful.widget.graph()
@@ -185,6 +185,7 @@ for s = 1, screen.count() do
          cpuwidget,
          separator, memwidget,
          separator, batwidget,
+         separator,
          s == 1 and mysystray or nil,
          mytasklist[s],
          layout = awful.widget.layout.horizontal.rightleft
