@@ -101,7 +101,15 @@ vicious.register(memwidget, vicious.widgets.mem, "$2MB/$3MB", 15)
 
 -- Battery widget
 batwidget = widget({ type = "textbox" })
-vicious.register(batwidget, vicious.widgets.bat, "$1 $2 $3", 60, "BAT0") 
+vicious.register(batwidget, vicious.widgets.bat, "$1 | $2 | $3", 60, "BAT0") 
+
+-- CPU usage widget
+cpuwidget = awful.widget.graph()
+cpuwidget:set_width(50)
+cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_color("#FF5656")
+cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -173,12 +181,10 @@ for s = 1, screen.count() do
          },
          mylayoutbox[s],
          mytextclock,
-         separator,
-         netwidget,       --   ADD THIS, don't forget the comma!
-         separator,
-         memwidget,
-         separator,
-         batwidget,
+         -- separator, netwidget,       --   ADD THIS, don't forget the comma!
+         cpuwidget,
+         separator, memwidget,
+         separator, batwidget,
          s == 1 and mysystray or nil,
          mytasklist[s],
          layout = awful.widget.layout.horizontal.rightleft
