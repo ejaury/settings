@@ -4,4 +4,5 @@
 
 alias ls='ls --color=auto'
 alias grep='grep -n --color'
+alias git-diff='git diff --color'
 PS1='[\u@\h \W]\$ '
