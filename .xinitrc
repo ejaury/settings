@@ -14,7 +14,7 @@ wicd-client &
 xbindkeys &
 #xcompmgr -c -t-5 -l-5 -r4.2 -o.55 &
 # disable shadows as it slows down performance by much
-xcompmgr &
+xcompmgr -F -D 1 &
 
 DEFAULT_SESSION=awesome
 case $1 in 
