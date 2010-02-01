@@ -54,7 +54,7 @@ tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     -- Set default layout for all tags
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, awful.layout.suit.tile)
+    tags[s] = awful.tag({ "one", "two", "three", "four", "five", "six", 7, 8, 9 }, s, awful.layout.suit.tile)
 end
 -- }}}
 
