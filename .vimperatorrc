@@ -1,0 +1,9 @@
+"2.1 (created: 2009/05/21 13:13:06)
+
+nnoremap <C-c> <C-v><C-c>
+noremap <C-c> <C-v><C-c>
+set runtimepath=/home/edwin/.vimperator
+vnoremap <C-c> <C-v><C-c>
+source! /home/edwin/.vimperatorrc.local
+
+" vim: set ft=vimperator:
