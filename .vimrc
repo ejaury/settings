@@ -5,7 +5,6 @@
 " Smart tabbing / autoindenting
 set undolevels=100
 set nocompatible
-set autoindent
 set smarttab
 " Allow backspace to back over lines
 set backspace=2
@@ -150,7 +149,8 @@ set showfulltag
 set display+=lastline
 set printoptions=syntax:y,wrap:y
 
-set paste
+" WARNING: if this is enabled, 'textwidth' option will be ignored
+"set paste
 
 " Switch on syntax highlighting.
 syntax on
@@ -160,7 +160,12 @@ set number
 " Show column number
 set ruler
 set nobackup
+set autoindent
 set clipboard=unnamed
-hi Comment ctermfg=blue
+set cursorline
+hi Comment ctermfg=Lightgrey
+hi Constant ctermfg=darkgreen
+"colorscheme wombat
+
 " Highlight characters that go beyong 80-char limit
 match ErrorMsg '\%>80v.\+'
