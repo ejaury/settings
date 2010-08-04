@@ -11,4 +11,5 @@ alias xrandr-normal="xrandr --output VGA1 --off"
 alias xrandr-duplicate="xrandr --output LVDS1 --mode 1400x1050 --output VGA1 --auto"
 alias xrandr-extend="xrandr --output LVDS1 --auto --output VGA1 --auto
 --right-of LVDS1"
-PS1='[\u@\h \W]\$ '
+#PS1='[\u@\h \W]\$ '
+export PS1="[\e[1;32m\u\e[m@\h \e[0;37m\t\e[m \e[1;31m\W\e[m]$ \e[m"
