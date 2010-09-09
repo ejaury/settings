@@ -1,174 +1,44 @@
-" Smart tabbing / autoindenting
-set undolevels=100
 set nocompatible
-set smarttab
-" Allow backspace to back over lines
-set backspace=2
-set exrc
-set shiftwidth=2
-set tabstop=2 expandtab
-set cino=t0
-" I like it writing automatically on swapping
-set autowrite
-set noshowcmd
-if exists('&selection')
-  set selection=exclusive
-endif
+colorscheme desert256
 
-if has("gui_running")
-    " set the font to use
-    set guifont=Courier_New:h10
-    " Hide the mouse pointer while typing
-    set mousehide
-endif
+filetype plugin on
+filetype indent on
 
-
-"Special error formats that handles borland make, greps
-"Error formats :
-"   line = line number
-"   file = file name
-"   etype = error type ( a single character )
-"   enumber = error number
-"   column = column number
-"   message = error message 
-"   _ = space
-
-"   file(line)_:_etype [^0-9] enumber:_message
-"   [^"] "file" [^0-9] line:_message
-"   file(line)_:_message
-"   [^ ]_file_line:_message
-"   file:line:message
-"   etype [^ ]_file_line:_message
-"   etype [^:]:__file(line,column):message    = Borland ??
-"   file:line:message
-"   etype[^_]file_line_column:_message
-set efm=%*[^\ ]\ %t%n\ %f\ %l:\ %m,%\\s%#%f(%l)\ :\ %t%*[^0-9]%n:\ %m,%*[^\"]\"%f\"%*[^0-9]%l:\ %m,%\\s%#%f(%l)\ :\ %m,%*[^\ ]\ %f\ %l:\ %m,%f:%l:%m,%t%*[^\ ]\ %f\ %l:\ %m,%t%*[^:]:\ \ %f(%l\\,%c):%m,%f:%l:%m,%t%*[^\ ]\ %f\ %l\ %c:\ %m 
-" This changes the status bar highlight slightly from the default
-" " set highlight=8b,db,es,mb,Mn,nu,rs,ss,tb,vr,ws
-
-"I like things quiet
-set visualbell
-" Give some room for errors
-set cmdheight=2
-" always show a status line
-au VimEnter * set laststatus=2
-set ruler
-" Use a viminfo file
-set viminfo='20,\"50
-"set path=.,d:\wave,d:\wave\include,d:\wave\fdt
-set textwidth=80        " always limit the width of text to 80
-"set backup              " keep a backup file
-"set backupext=.bak
-" Like having history
-set history=100
-
-" Map Y do be analog of D
-map Y y$
-" Toggle paste 
-map zp :set paste! paste?<CR>
-
-" From the vimrc of 'Peppe'
-
-  " So I can get to ,
-  noremap g, ,
-  " Go to old line + column
-  noremap gf gf`"
-  noremap <C-^> <C-^>`"
-
-
-" Switch off search pattern highlighting.
-set nohlsearch
-"Toggle search pattern hilighting and display the value
-if v:version >=600
-  map <f7> :nohlsearch<CR>
-else
-  map <f7> :set hlsearch! hlsearch?<CR>
-endif
-imap <f7> <C-O><f7> 
-
-"Ctags mapping for <alt n> and <alt p>
-map <M-n> :cn<cr>z.:cc<CR>
-map <M-p> :cp<cr>z.:cc<CR>
-set shellpipe=2>&1\|tee
-"set shellpipe=\|grep\ -v\ NOTE:\|tee
-
-" Set nice colors
-" background for normal text is light grey
-" Text below the last line is darker grey
-" Cursor is green
-" Constants are not underlined but have a slightly lighter background
-"  highlight Normal guibg=grey95
-highlight Cursor guibg=Red guifg=NONE
-highlight Visual guifg=Sys_HighlightText guibg=Sys_Highlight gui=NONE
-"  highlight NonText guibg=grey90
-"  highlight Constant gui=NONE guibg=grey95
-"  highlight Special gui=NONE guibg=grey95
-
-if has("gui_running")
-"if &columns < 90 && &lines < 32
-"   win 90 32 
-    au GUIEnter * win 90 32 
-"  endif
-  " Make external commands work through a pipe instead of a pseudo-tty
-  set noguipty
-endif
-
-" Map control-cr to goto new line without comment leader
-imap <C-CR> <ESC>o
-
-" Look at syntax attribute
-nmap <F4> :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
-nmap <S-F4> :echo synIDattr(synID(line("."), col("."), 0), "name")<CR>
-" delete the swap file
-nmap \\. :echo strpart("Error  Deleted",7*(0==delete(expand("%:p:h")."/.".expand("%:t").".swp")),7)<cr>
-
-" delete prev word
-imap <C-BS> <c-w>
-
-  set joinspaces 
-
-" Today
-if !exists('usersign') 
-let usersign=$username
-endif
-imap <F2> <C-R>=strftime("%d%b%Y")." ".usersign.":"<CR>
-if has("menu")
-  imenu 35.60 &Insert.&Date<tab>F2      <c-r>=strftime("%d%b%Y")." ".usersign.":"<CR>
-  menu  35.60 &Insert.&Date<tab>F2      "=strftime("%d%b%Y")." ".usersign.":"<CR>p
-  imenu  35.60 &Insert.Date\ and\ &Username     <c-r>=strftime("%d%b%Y")<CR>
-  menu  35.60 &Insert.Date\ and\ &Username      "=strftime("%d%b%Y")<CR>p
-endif
-
-" Enable 'wild menus'
-set wildmenu
-set showfulltag
-set display+=lastline
-set printoptions=syntax:y,wrap:y
-
-" WARNING: if this is enabled, 'textwidth' option will be ignored
-"set paste
-
-" Switch on syntax highlighting.
-syntax on
-
-" Show line number
+set ignorecase
+set smartcase
 set number
-" Show column number
-set ruler
+set scrolloff=3
+set wrap
 set nobackup
-set autoindent
-set clipboard=unnamed
 set cursorline
-hi Comment ctermfg=Lightgrey
-hi Constant ctermfg=darkgreen
-"colorscheme wombat
+set cino=l1,g0,t0
+set autochdir
+set clipboard=unnamed
+set tags=tags
+set autoindent
+set smartindent 
+set tabstop=2 expandtab
+set shiftwidth=2
+set softtabstop=2
+set textwidth=80
+set showmatch
+set showcmd
+" Auto-format: numbered list, no autoformat if text > tw, don't break 1-letter
+" word
+set formatoptions+=nl1
+set hlsearch
+set matchtime=1
+set undolevels=100
+set backspace=2
 
-" Highlight characters that go beyong 80-char limit
+" Highlight characters that go beyond 80-char limit
 match ErrorMsg '\%>80v.\+'
 
-" OmniCpp 
-set nocp
-filetype plugin on 
+syntax on
+
+:noremap <silent> <S-j> <C-E>
+:noremap <silent> <S-k> <C-Y>
+
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
@@ -177,6 +47,11 @@ let OmniCpp_MayCompleteDot = 1
 let OmniCpp_MayCompleteArrow = 1
 let OmniCpp_MayCompleteScope = 1
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"] 
+" Close preview window after unfocus
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
+" Build ctags db for C/C++
+map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" Build ctags db for python
+map <C-b><C-p> :!ctags -R --languages=python .<CR>
