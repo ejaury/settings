@@ -1,7 +1,3 @@
-" Michael's standard settings
-" Author: Michael Geddes
-" Version: 0.1
-
 " Smart tabbing / autoindenting
 set undolevels=100
 set nocompatible
@@ -169,3 +165,18 @@ hi Constant ctermfg=darkgreen
 
 " Highlight characters that go beyong 80-char limit
 match ErrorMsg '\%>80v.\+'
+
+" OmniCpp 
+set nocp
+filetype plugin on 
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 1
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"] 
+
+map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
