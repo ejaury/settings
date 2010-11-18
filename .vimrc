@@ -17,16 +17,16 @@ set clipboard=unnamed
 set tags=tags
 set autoindent
 set smartindent 
-set tabstop=2 expandtab
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4 expandtab
+set shiftwidth=4
+set softtabstop=4
 set textwidth=80
 set showmatch
 set showcmd
 " Auto-format: numbered list, no autoformat if text > tw, don't break 1-letter
 " word
 set formatoptions+=nl1
-set hlsearch
+set nohlsearch
 set matchtime=1
 set undolevels=100
 set backspace=2
@@ -51,7 +51,13 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
+" Taglist 
+let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+let Tlist_WinWidth = 40
+
 " Build ctags db for C/C++
 map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " Build ctags db for python
 map <C-b><C-p> :!ctags -R --languages=python .<CR>
+" Toggle Taglist window
+map <F4> :TlistToggle<CR>
