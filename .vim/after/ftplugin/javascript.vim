@@ -1,0 +1,2 @@
+" Clear pattern
+match none
