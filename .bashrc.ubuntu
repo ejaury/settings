@@ -125,9 +125,6 @@ svnlog()
     svn log $SVN_ROOT/$rel_path "${@}"
 }
 
-# Python console autocomplete
-export PYTHONSTARTUP=$HOME/.pystartup
-
 export SVN_EDITOR="vim"
 export PYVER=python2.6
 export PYPATH=/usr/local/lib/$PYVER/dist-packages
