@@ -117,7 +117,7 @@ svndiff()
     svn diff "${@}" | colordiff | less -R
 }
 
-SVN_ROOT=http://scm-yvr.fortinet.com:8080/svn/svnroot/FortiAccessv4
+SVN_ROOT=
 svnlog()
 {
     d=`pwd -P`
