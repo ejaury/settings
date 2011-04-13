@@ -1,6 +1,12 @@
 set nocompatible
 colorscheme desert256
 
+if has('gui_running')
+    colorscheme wombat
+    set guioptions-=T
+    set guifont=Inconsolata\ Medium\ 10
+endif
+
 filetype plugin on
 filetype indent on
 
