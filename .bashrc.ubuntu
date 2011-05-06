@@ -97,6 +97,19 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Colorize and paginate svn diff
+svndiff()
+{
+    svn diff "${@}" | colordiff | less -R
+}
+
+# svn log alias to get revision logs recursively from current path
+svnlog()
+{
+    svn_url=`svn info . | grep URL | awk '{ print $2 }'`
+    svn log $svn_url "${@}"
+}
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -104,29 +117,18 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Source django bash_autocomplete
-source /usr/local/lib/python2.6/dist-packages/django/django_bash_completion
-
-alias diff="diff -u"
-alias Fac="cd ~/fac_web"
-alias svnadd-all="svn status | grep "^\?" | awk '{print \$2}' | xargs svn add" 
-alias manage-test="./manage.py test --config=conf/setup.cfg"
-
-svndiff()
-{
-    svn diff "${@}" | colordiff | less -R
-}
-
-SVN_ROOT=
-svnlog()
-{
-    d=`pwd -P`
-    rel_path=`echo $d | sed s:/home/ejaury/repos/fac/::g`
-    svn log $SVN_ROOT/$rel_path "${@}"
-}
-
+# Env variables
 export SVN_EDITOR="vim"
-export PYVER=python2.6
-export PYPATH=/usr/local/lib/$PYVER/dist-packages
-export DJANGO=$PYPATH/django
-export PYTHONPATH=/usr/lib/$PYVER/:/usr/local/lib/$PYVER/:/usr/lib/$PYVER/lib-dynload/:$PYPATH:$PYPATH/django:$PYTHONPATH
+
+# Source local settings if there's any
+if [ -f ~/.bashrc_local ]; then
+    . ~/.bashrc_local
+fi
+
+# Source django bash_autocomplete
+if [ -n "${DJANGO}" ]; then
+    DJANGO_COMPLETION_PATH=$DJANGO/django_bash_completion
+    if [ -f "${DJANGO_COMPLETION_PATH}" ]; then
+        . $DJANGO_COMPLETION_PATH
+    fi
+fi
