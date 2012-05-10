@@ -37,6 +37,10 @@ set matchtime=1
 set undolevels=100
 set backspace=2
 
+" Ctags search path: look for tags in current directory, then work up the tree
+" towards the root until one is found
+set tags=./tags;/
+
 " Highlight characters that go beyond 80-char limit
 match ErrorMsg '\%>80v.\+'
 
