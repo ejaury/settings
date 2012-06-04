@@ -71,3 +71,6 @@ map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 map <C-b><C-p> :!ctags -R --languages=python .<CR>
 " Toggle Taglist window
 map <F4> :TlistToggle<CR>
+
+" Map w!! to save a file as a root
+cmap w!! w !sudo tee >/dev/null %
