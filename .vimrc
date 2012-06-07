@@ -41,6 +41,8 @@ set backspace=2
 " towards the root until one is found
 set tags=./tags;/
 
+"set laststatus=2 " Always show the statusline - for Powerline
+
 " Highlight characters that go beyond 80-char limit
 match ErrorMsg '\%>80v.\+'
 
@@ -74,3 +76,13 @@ map <F4> :TlistToggle<CR>
 
 " Map w!! to save a file as a root
 cmap w!! w !sudo tee >/dev/null %
+
+" Visual mode maps
+" ================
+" Remove trailing white-space
+vnoremap ff :s/[ ]*$//<CR>
+
+" Comment block with #
+vnoremap cc :s/^/#/<CR>
+" Uncomment block that starts with #
+vnoremap CC :s/^#//<CR>
