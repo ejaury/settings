@@ -41,12 +41,11 @@ set backspace=2
 " towards the root until one is found
 set tags=./tags;/
 
-"set laststatus=2 " Always show the statusline - for Powerline
-
 " Highlight characters that go beyond 80-char limit
 match ErrorMsg '\%>80v.\+'
 
 syntax on
+call pathogen#infect()
 
 :noremap <silent> <S-j> <C-E>
 :noremap <silent> <S-k> <C-Y>
