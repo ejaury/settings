@@ -26,13 +26,13 @@ set smartindent
 set tabstop=4 expandtab
 set shiftwidth=4
 set softtabstop=4
-set textwidth=80
+set textwidth=79
 set showmatch
 set showcmd
 " Auto-format: numbered list, no autoformat if text > tw, don't break 1-letter
 " word
 set formatoptions+=nl1
-set nohlsearch
+set hlsearch
 set matchtime=1
 set undolevels=100
 set backspace=2
@@ -40,6 +40,9 @@ set backspace=2
 " Ctags search path: look for tags in current directory, then work up the tree
 " towards the root until one is found
 set tags=./tags;/
+
+" Show whitespaces as characters
+" set list
 
 " Highlight characters that go beyond 80-char limit
 match ErrorMsg '\%>80v.\+'
@@ -72,6 +75,8 @@ map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 map <C-b><C-p> :!ctags -R --languages=python .<CR>
 " Toggle Taglist window
 map <F4> :TlistToggle<CR>
+" Resize windows to equal size
+map <F5> :wincmd =<CR>
 
 " Map w!! to save a file as a root
 cmap w!! w !sudo tee >/dev/null %
