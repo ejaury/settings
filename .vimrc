@@ -26,6 +26,7 @@ set smartindent
 set tabstop=4 expandtab
 set shiftwidth=4
 set softtabstop=4
+set list listchars=tab:>-,trail:.
 set textwidth=79
 set showmatch
 set showcmd
