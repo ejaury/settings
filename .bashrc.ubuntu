@@ -5,9 +5,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -56,23 +56,22 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# Set terminal title automatically
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    # If this is an xterm set the title to user@host:dir
+    # < Ubuntu 12.04
+    #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+
+    # Ubuntu 12.04 + Cinnamon
+    # Format: dirname (fullpath)
+    PROMPT_COMMAND='echo -ne "\033]0;`basename ${PWD}` (${PWD})\007"'
     ;;
 *)
     ;;
 esac
 
-# Bash prompt color definitiions
-if [ -f ~/.bash_colors ]; then
-    . ~/.bash_colors
-    export PS1="${BGreen}\u${BWhite}@${TReset}\[$(tput setaf 2)\]\h\[$(tput sgr0)\]-\[$(tput setaf 1)\]\[$(tput bold)\]\w\[$(tput sgr0)\] $ "
-else
-    export PS1="\[$(tput setaf 2)\]\[$(tput bold)\]\u\[$(tput sgr0)\]@\[$(tput setaf 2)\]\h\[$(tput sgr0)\]-\[$(tput setaf 1)\]\[$(tput bold)\]\w\[$(tput sgr0)\] $ "
-fi
-
+export PS1="\[$(tput setaf 2)\]\[$(tput bold)\]\u\[$(tput sgr0)\]@\[$(tput setaf 2)\]\h\[$(tput sgr0)\]-\[$(tput setaf 1)\]\[$(tput bold)\]\w\[$(tput sgr0)\] $ "
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -105,6 +104,12 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Colorize and paginate svn diff
+cdiff()
+{
+    colordiff -uwb "${@}" | less -R
+}
+
+# Colorize and paginate svn diff
 svndiff()
 {
     svn diff "${@}" | colordiff | less -R
@@ -115,6 +120,12 @@ svnlog()
 {
     svn_url=`svn info . | grep URL | awk '{ print $2 }'`
     svn log $svn_url "${@}"
+}
+
+# svn stat alias to ignore all externals and unversioned files/dir
+svnstat()
+{
+    svn status --ignore-externals "${@}" | grep -v \? | grep -v "^X "
 }
 
 # enable programmable completion features (you don't need to enable
