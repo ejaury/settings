@@ -74,6 +74,8 @@ let Tlist_WinWidth = 40
 map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " Build ctags db for python
 map <C-b><C-p> :!ctags -R --languages=python .<CR>
+" Build ctags db for sh
+map <C-b><C-k> :!ctags -R --languages=sh .<CR>
 " Toggle Taglist window
 map <F4> :TlistToggle<CR>
 " Resize windows to equal size
@@ -91,3 +93,7 @@ vnoremap ff :s/[ ]*$//<CR>
 vnoremap cc :s/^/#/<CR>
 " Uncomment block that starts with #
 vnoremap CC :s/^#//<CR>
+
+" Set gnome-terminal title when opening a file
+set title
+autocmd BufRead * let &titlestring = expand("%:t") . " (" . expand("%:p:h") . ")"
