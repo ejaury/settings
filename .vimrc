@@ -45,8 +45,12 @@ set tags=./tags;/
 " Show whitespaces as characters
 " set list
 
-" Highlight characters that go beyond 80-char limit
-match ErrorMsg '\%>80v.\+'
+" Highlight characters: Warn when past 79 chars, Error when past 99 chars
+hi Warn79   ctermfg=darkyellow ctermbg=black
+:let w:m1=matchadd('Warn79', '\%<101v.\%>79v', -1)
+:let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+" Prevent colorscheme from clearing custom group 'Warn79'
+autocmd ColorScheme * highlight Warn79 ctermfg=darkyellow ctermbg=black
 
 syntax on
 call pathogen#infect()
@@ -76,6 +80,8 @@ map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 map <C-b><C-p> :!ctags -R --languages=python .<CR>
 " Build ctags db for sh
 map <C-b><C-k> :!ctags -R --languages=sh .<CR>
+" NerdTree toggle
+map <F3> :NERDTreeToggle<CR>
 " Toggle Taglist window
 map <F4> :TlistToggle<CR>
 " Resize windows to equal size
@@ -83,6 +89,15 @@ map <F5> :wincmd =<CR>
 
 " Map w!! to save a file as a root
 cmap w!! w !sudo tee >/dev/null %
+
+" Set gnome-terminal title when opening a file
+set title
+autocmd BufRead * let &titlestring = expand("%:t") . " (" . expand("%:p:h") . ")"
+
+" vim-indent-guides settings
+"let indent_guides_enable_on_vim_startup = 1
+let indent_guides_start_level = 2
+let indent_guides_guide_size = 1
 
 " Visual mode maps
 " ================
@@ -93,7 +108,3 @@ vnoremap ff :s/[ ]*$//<CR>
 vnoremap cc :s/^/#/<CR>
 " Uncomment block that starts with #
 vnoremap CC :s/^#//<CR>
-
-" Set gnome-terminal title when opening a file
-set title
-autocmd BufRead * let &titlestring = expand("%:t") . " (" . expand("%:p:h") . ")"
