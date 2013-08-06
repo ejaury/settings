@@ -46,11 +46,11 @@ set tags=./tags;/
 " set list
 
 " Highlight characters: Warn when past 79 chars, Error when past 99 chars
-hi Warn79   ctermfg=darkyellow ctermbg=black
-:let w:m1=matchadd('Warn79', '\%<101v.\%>79v', -1)
-:let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
-" Prevent colorscheme from clearing custom group 'Warn79'
-autocmd ColorScheme * highlight Warn79 ctermfg=darkyellow ctermbg=black
+hi Warn80  ctermfg=darkyellow ctermbg=black
+:au BufWinEnter * let w:m1=matchadd('Warn80', '\%<101v.\%>80v', -1)
+:au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+" Prevent colorscheme from clearing custom group 'Warn80'
+autocmd ColorScheme * highlight Warn80 ctermfg=darkyellow ctermbg=black
 
 syntax on
 call pathogen#infect()
