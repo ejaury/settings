@@ -5,7 +5,7 @@ if has('gui_running')
     colorscheme desert
     set guioptions-=T
     set guioptions-=a   " I don't want to auto-copy selection
-    set guifont=Ubuntu\ Mono\ 10, Inconsolata\ Medium\ 10
+    set guifont=Ubuntu\ Mono\ 10,Inconsolata\ Medium\ 10
 endif
 
 filetype plugin on
