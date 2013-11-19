@@ -2,9 +2,10 @@ set nocompatible
 colorscheme desert256
 
 if has('gui_running')
-    colorscheme wombat
+    colorscheme desert
     set guioptions-=T
-    set guifont=Inconsolata\ Medium\ 10
+    set guioptions-=a   " I don't want to auto-copy selection
+    set guifont=Ubuntu\ Mono\ 10, Inconsolata\ Medium\ 10
 endif
 
 filetype plugin on
@@ -46,17 +47,17 @@ set tags=./tags;/
 " set list
 
 " Highlight characters: Warn when past 79 chars, Error when past 99 chars
-hi Warn80  ctermfg=darkyellow ctermbg=black
+hi Warn80  ctermfg=darkyellow
 :au BufWinEnter * let w:m1=matchadd('Warn80', '\%<101v.\%>80v', -1)
 :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
-" Prevent colorscheme from clearing custom group 'Warn80'
-autocmd ColorScheme * highlight Warn80 ctermfg=darkyellow ctermbg=black
+"" Prevent colorscheme from clearing custom group 'Warn80'
+autocmd ColorScheme * highlight Warn80 ctermfg=darkyellow
 
 syntax on
 call pathogen#infect()
 
-:noremap <silent> <S-j> <C-E>
-:noremap <silent> <S-k> <C-Y>
+" CtrlP for fuzzy search
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
@@ -74,18 +75,24 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 let Tlist_WinWidth = 40
 
-" Build ctags db for C/C++
-map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-" Build ctags db for python
-map <C-b><C-p> :!ctags -R --languages=python .<CR>
-" Build ctags db for sh
-map <C-b><C-k> :!ctags -R --languages=sh .<CR>
-" NerdTree toggle
-map <F3> :NERDTreeToggle<CR>
-" Toggle Taglist window
-map <F4> :TlistToggle<CR>
-" Resize windows to equal size
-map <F5> :wincmd =<CR>
+" Tagbar
+let tagbar_left = 1
+
+
+:noremap <silent> <S-j> <C-E>
+:noremap <silent> <S-k> <C-Y>
+
+map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>     " Build ctags db for C/C++
+map <C-b><C-p> :!ctags -R --languages=python,javascript,js .<CR>            " Build ctags db for python & js
+map <C-b><C-k> :!ctags -R --languages=sh .<CR>                              " Build ctags db for sh
+
+map <F3> :NERDTreeToggle<CR>            " NerdTree toggle
+map <F4> :TagbarToggle<CR>              " Toggle Tagbar window
+"map <F4> :TlistToggle<CR>
+map <F5> :wincmd =<CR>                  " Resize windows to equal size
+map <silent><A-Right> :tabnext<CR>      " map Alt-RightArrow to jump to the next tab
+map <silent><A-Left> :tabprevious<CR>   " map Alt-LeftArrow to jump to the previous tab
+nnoremap <leader>. :CtrlPTag<cr>        " CtrlP search for tags
 
 " Map w!! to save a file as a root
 cmap w!! w !sudo tee >/dev/null %
