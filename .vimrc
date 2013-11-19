@@ -46,15 +46,24 @@ set tags=./tags;/
 " Show whitespaces as characters
 " set list
 
-" Highlight characters: Warn when past 79 chars, Error when past 99 chars
-hi Warn80  ctermfg=darkyellow
-:au BufWinEnter * let w:m1=matchadd('Warn80', '\%<101v.\%>80v', -1)
-:au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
-"" Prevent colorscheme from clearing custom group 'Warn80'
-autocmd ColorScheme * highlight Warn80 ctermfg=darkyellow
-
 syntax on
 call pathogen#infect()
+
+
+" Highlight characters: Warn when past 79 chars, Error when past 99 chars
+if has('gui_running')
+    " Show warning (at 80) and max width markers (at 100)
+    let &colorcolumn="80,".join(range(100,400),",")
+    hi ColorColumn guibg=#2C2D27
+else
+    " Set warning highlight
+    hi Warn80 ctermfg=darkyellow
+    :au BufWinEnter * let w:m1=matchadd('Warn80', '\%<101v.\%>80v', -1)
+    " Show max width marker
+    set colorcolumn=100
+    hi ColorColumn ctermbg=3
+endif
+
 
 " CtrlP for fuzzy search
 set runtimepath^=~/.vim/bundle/ctrlp.vim
