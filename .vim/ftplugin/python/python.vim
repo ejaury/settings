@@ -4,6 +4,7 @@ abbr fo forms
 abbr mo models
 abbr ob objects
 abbr pd import ipdb; ipdb.set_trace()
+abbr pu import pudb; pudb.set_trace()
 abbr rem # TODO: REMOVE
 
 let b:surround_{char2nr("c")} = "'''\r'''"

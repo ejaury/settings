@@ -6,10 +6,19 @@ if has('gui_running')
     set guioptions-=T
     set guioptions-=a   " I don't want to auto-copy selection
     set guifont=Ubuntu\ Mono\ 10,Inconsolata\ Medium\ 10
+else
+    " Set gnome-terminal title when opening a file
+    set title
+    autocmd BufRead * let &titlestring = expand("%:t") . " (" . expand("%:p:h") . ")"
 endif
+
+filetype off
+call pathogen#infect()
+call pathogen#helptags()
 
 filetype plugin on
 filetype indent on
+syntax on
 
 set ignorecase
 set smartcase
@@ -46,10 +55,6 @@ set tags=./tags;/
 " Show whitespaces as characters
 " set list
 
-syntax on
-call pathogen#infect()
-
-
 " Highlight characters: Warn when past 79 chars, Error when past 99 chars
 if has('gui_running')
     " Show warning (at 80) and max width markers (at 100)
@@ -64,6 +69,30 @@ else
     hi ColorColumn ctermbg=3
 endif
 
+:noremap <silent> <S-j> <C-E>
+:noremap <silent> <S-k> <C-Y>
+
+map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>     " Build ctags db for C/C++
+map <C-b><C-p> :!ctags -R --languages=python,javascript,js .<CR>            " Build ctags db for python & js
+map <C-b><C-k> :!ctags -R --languages=sh .<CR>                              " Build ctags db for sh
+
+map <F3> :NERDTreeToggle<CR>            " NerdTree toggle
+map <F4> :TagbarToggle<CR>              " Toggle Tagbar window
+map <F5> :wincmd =<CR>                  " Resize windows to equal size
+map <F8> :TlistToggle<CR>               " Toggle TagList window
+map <silent><A-Right> :tabnext<CR>      " map Alt-RightArrow to jump to the next tab
+map <silent><A-Left> :tabprevious<CR>   " map Alt-LeftArrow to jump to the previous tab
+nnoremap <leader>f :CtrlP<cr>           " CtrlP search for files
+nnoremap <leader>. :CtrlPTag<cr>        " CtrlP search for tags
+
+" Visual mode maps
+" ================
+vnoremap ff :s/[ ]*$//<CR>              " Remove trailing white-space
+vnoremap cc :s/^/#/<CR>                 " Comment block with #
+vnoremap CC :s/^#//<CR>                 " Uncomment block that starts with #
+
+" Map w!! to save a file as a root
+cmap w!! w !sudo tee >/dev/null %
 
 " CtrlP for fuzzy search
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -87,40 +116,26 @@ let Tlist_WinWidth = 40
 " Tagbar
 let tagbar_left = 1
 
-
-:noremap <silent> <S-j> <C-E>
-:noremap <silent> <S-k> <C-Y>
-
-map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>     " Build ctags db for C/C++
-map <C-b><C-p> :!ctags -R --languages=python,javascript,js .<CR>            " Build ctags db for python & js
-map <C-b><C-k> :!ctags -R --languages=sh .<CR>                              " Build ctags db for sh
-
-map <F3> :NERDTreeToggle<CR>            " NerdTree toggle
-map <F4> :TagbarToggle<CR>              " Toggle Tagbar window
-"map <F4> :TlistToggle<CR>
-map <F5> :wincmd =<CR>                  " Resize windows to equal size
-map <silent><A-Right> :tabnext<CR>      " map Alt-RightArrow to jump to the next tab
-map <silent><A-Left> :tabprevious<CR>   " map Alt-LeftArrow to jump to the previous tab
-nnoremap <leader>. :CtrlPTag<cr>        " CtrlP search for tags
-
-" Map w!! to save a file as a root
-cmap w!! w !sudo tee >/dev/null %
-
-" Set gnome-terminal title when opening a file
-set title
-autocmd BufRead * let &titlestring = expand("%:t") . " (" . expand("%:p:h") . ")"
-
 " vim-indent-guides settings
 "let indent_guides_enable_on_vim_startup = 1
 let indent_guides_start_level = 2
 let indent_guides_guide_size = 1
 
-" Visual mode maps
-" ================
-" Remove trailing white-space
-vnoremap ff :s/[ ]*$//<CR>
+" python-mode
+let g:pymode_folding = 0
+let g:pymode_lint_cwindow = 0           " This lint slows vim down over time. Use plain pyflake
+let g:pymode_trim_whitespaces = 0
+let g:pymode_lint_ignore = "E501"       " Ignore this error so more important error takes precedence
 
-" Comment block with #
-vnoremap cc :s/^/#/<CR>
-" Uncomment block that starts with #
-vnoremap CC :s/^#//<CR>
+" Cscope
+" Auto-load CScope database
+function! LoadCscope()
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  endif
+endfunction
+au BufEnter /* call LoadCscope()
