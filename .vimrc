@@ -52,6 +52,10 @@ set backspace=2
 " towards the root until one is found
 set tags=./tags;/
 
+" Enable closetag.vim
+autocmd FileType html,htmldjango let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango, source ~/.vim/bundle/closetag/plugin/closetag.vim
+
 " Show whitespaces as characters
 " set list
 
@@ -76,20 +80,20 @@ map <C-b><C-n> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>     " Bu
 map <C-b><C-p> :!ctags -R --languages=python,javascript,js .<CR>            " Build ctags db for python & js
 map <C-b><C-k> :!ctags -R --languages=sh .<CR>                              " Build ctags db for sh
 
-map <F3> :NERDTreeToggle<CR>            " NerdTree toggle
-map <F4> :TagbarToggle<CR>              " Toggle Tagbar window
-map <F5> :wincmd =<CR>                  " Resize windows to equal size
-map <F8> :TlistToggle<CR>               " Toggle TagList window
-map <silent><A-Right> :tabnext<CR>      " map Alt-RightArrow to jump to the next tab
-map <silent><A-Left> :tabprevious<CR>   " map Alt-LeftArrow to jump to the previous tab
-nnoremap <leader>f :CtrlP<cr>           " CtrlP search for files
-nnoremap <leader>. :CtrlPTag<cr>        " CtrlP search for tags
+map <F3> :NERDTreeToggle<CR>                    " NerdTree toggle
+map <F4> :TagbarToggle <bar> :wincmd =<CR>      " Toggle Tagbar window
+map <F5> :wincmd =<CR>                          " Resize windows to equal size
+map <F8> :TlistToggle <bar> :wincmd =<CR>       " Toggle TagList window
+map <silent><A-Right> :tabnext<CR>              " map Alt-RightArrow to jump to the next tab
+map <silent><A-Left> :tabprevious<CR>           " map Alt-LeftArrow to jump to the previous tab
+nnoremap <leader>f :CtrlP<cr>                   " CtrlP search for files
+nnoremap <leader>. :CtrlPTag<cr>                " CtrlP search for tags
 
 " Visual mode maps
 " ================
-vnoremap ff :s/[ ]*$//<CR>              " Remove trailing white-space
-vnoremap cc :s/^/#/<CR>                 " Comment block with #
-vnoremap CC :s/^#//<CR>                 " Uncomment block that starts with #
+vnoremap ff :s/[ ]*$//<CR>                      " Remove trailing white-space
+vnoremap cc :s/^/#/ <bar> let @/ = ""<CR>       " Comment block with #, then clear search highlight
+vnoremap CC :s/^#//<CR>                         " Uncomment block that starts with #
 
 " Map w!! to save a file as a root
 cmap w!! w !sudo tee >/dev/null %
@@ -126,6 +130,7 @@ let g:pymode_folding = 0
 let g:pymode_lint_cwindow = 0           " This lint slows vim down over time. Use plain pyflake
 let g:pymode_trim_whitespaces = 0
 let g:pymode_lint_ignore = "E501"       " Ignore this error so more important error takes precedence
+let g:pymode_rope = 0                   " Causing a bug with cursor moved when typing period
 
 " Cscope
 " Auto-load CScope database

@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/vim-colorschemes"]
 	path = .vim/bundle/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+[submodule ".vim/bundle/closetag"]
+	path = .vim/bundle/closetag
+	url = git://github.com/docunext/closetag.vim.git
