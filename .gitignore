@@ -4,3 +4,4 @@
 .viminfo
 .vimperator
 *.pyc
+*.VimballRecord
