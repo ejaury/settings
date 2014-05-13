@@ -1,4 +1,32 @@
 set nocompatible
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" One that starts it all
+Plugin 'gmarik/Vundle.vim'
+
+" Other plugins
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-surround'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'docunext/closetag.vim'
+
+" Syntax plugins
+Plugin 'klen/python-mode'
+Plugin 'pangloss/vim-javascript'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'tpope/vim-markdown'
+
+call vundle#end()
+
 colorscheme desert256
 
 if has('gui_running')
@@ -12,12 +40,7 @@ else
     autocmd BufRead * let &titlestring = expand("%:t") . " (" . expand("%:p:h") . ")"
 endif
 
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
-
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 syntax on
 
 set ignorecase
