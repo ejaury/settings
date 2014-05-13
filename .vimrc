@@ -15,10 +15,10 @@ Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'docunext/closetag.vim'
 
 " Syntax plugins
+Plugin 'flazz/vim-colorschemes'
 Plugin 'klen/python-mode'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
@@ -27,10 +27,10 @@ Plugin 'tpope/vim-markdown'
 
 call vundle#end()
 
-colorscheme desert256
+set background=dark
 
 if has('gui_running')
-    colorscheme desert
+    colorscheme desert  " Other nice ones: wombat, codeschool
     set guioptions-=T
     set guioptions-=a   " I don't want to auto-copy selection
     set guifont=Ubuntu\ Mono\ 10,Inconsolata\ Medium\ 10
@@ -38,6 +38,7 @@ else
     " Set gnome-terminal title when opening a file
     set title
     autocmd BufRead * let &titlestring = expand("%:t") . " (" . expand("%:p:h") . ")"
+    colorscheme desert256
 endif
 
 filetype plugin indent on
