@@ -78,7 +78,7 @@ set tags=./tags;/
 
 " Enable closetag.vim
 autocmd FileType html,htmldjango let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango, source ~/.vim/bundle/closetag/plugin/closetag.vim
+autocmd FileType html,xhtml,xml,htmldjango, source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
 " Show whitespaces as characters
 " set list
