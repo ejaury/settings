@@ -20,6 +20,7 @@ Plugin 'docunext/closetag.vim'
 " Syntax plugins
 Plugin 'flazz/vim-colorschemes'
 Plugin 'klen/python-mode'
+Plugin 'wookiehangover/jshint.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'nathanaelkane/vim-indent-guides'
