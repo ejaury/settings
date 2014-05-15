@@ -117,8 +117,6 @@ nnoremap <leader>. :CtrlPTag<cr>                " CtrlP search for tags
 " Visual mode maps
 " ================
 vnoremap ff :s/[ ]*$//<CR>                      " Remove trailing white-space
-vnoremap cc :s/^/#/ <bar> let @/ = ""<CR>       " Comment block with #, then clear search highlight
-vnoremap CC :s/^#//<CR>                         " Uncomment block that starts with #
 
 " Map w!! to save a file as a root
 cmap w!! w !sudo tee >/dev/null %
