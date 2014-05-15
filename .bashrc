@@ -14,6 +14,10 @@ else
     export PS1="\[$(tput setaf 2)\]\[$(tput bold)\]\u\[$(tput sgr0)\]@\[$(tput setaf 2)\]\h\[$(tput sgr0)\]-\[$(tput setaf 1)\]\[$(tput bold)\]\w\[$(tput sgr0)\] $ "
 fi
 
+# Set TERM correctly if we're capable of displaying at least 256 colors. Useful
+# to tell vim that 256-color is supported for colorscheme setting purpose.
+[[ -n "$DISPLAY" && "$TERM" = "xterm" ]] && export TERM=xterm-256color
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
