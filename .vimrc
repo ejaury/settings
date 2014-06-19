@@ -67,7 +67,7 @@ set showmatch
 set showcmd
 " Auto-format: numbered list, no autoformat if text > tw, don't break 1-letter
 " word
-set formatoptions+=nl1
+set formatoptions+=nl1t
 set hlsearch
 set matchtime=1
 set undolevels=100
