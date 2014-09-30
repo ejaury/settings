@@ -20,11 +20,13 @@ Plugin 'docunext/closetag.vim'
 " Syntax plugins
 Plugin 'flazz/vim-colorschemes'
 Plugin 'klen/python-mode'
-Plugin 'wookiehangover/jshint.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-markdown'
+" Use the community driven JSHint instead:
+" http://stackoverflow.com/a/5893447/289256
+"Plugin 'wookiehangover/jshint.vim'
 
 call vundle#end()
 
