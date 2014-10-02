@@ -4,7 +4,8 @@ if has('gui_running')
     " setting the colorscheme.
     hi ColorColumn guibg=#2C2D27
 else
-    colorscheme wombat256
+    "colorscheme wombat256
+    colorscheme darkburn
 endif
 
 " Visual mode maps
@@ -12,3 +13,5 @@ vnoremap cc :s/^/\/\// <bar> let @/ = ""<CR>       " Comment block with //, then
 vnoremap CC :s/^\/\///<CR>                         " Uncomment block that starts with //
 
 let b:surround_{char2nr("c")} = "/*\r*/"
+
+abbr rem // TODO: REMOVE
