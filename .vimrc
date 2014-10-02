@@ -16,6 +16,9 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'docunext/closetag.vim'
+Plugin 'bling/vim-airline'
+Plugin 'mhinz/vim-signify'
+Plugin 'tpope/vim-fugitive'
 
 " Syntax plugins
 Plugin 'flazz/vim-colorschemes'
@@ -109,12 +112,10 @@ map <C-b><C-k> :!ctags -R --languages=sh .<CR>                              " Bu
 
 map <F3> :NERDTreeToggle<CR>                    " NerdTree toggle
 map <F4> :TagbarToggle <bar> :wincmd =<CR>      " Toggle Tagbar window
-map <F5> :wincmd =<CR>                          " Resize windows to equal size
+map <F6> :wincmd =<CR>                          " Resize windows to equal size
 map <F8> :TlistToggle <bar> :wincmd =<CR>       " Toggle TagList window
 map <silent><A-Right> :tabnext<CR>              " map Alt-RightArrow to jump to the next tab
 map <silent><A-Left> :tabprevious<CR>           " map Alt-LeftArrow to jump to the previous tab
-nnoremap <leader>f :CtrlP<cr>                   " CtrlP search for files
-nnoremap <leader>. :CtrlPTag<cr>                " CtrlP search for tags
 
 " Visual mode maps
 " ================
@@ -125,6 +126,13 @@ cmap w!! w !sudo tee >/dev/null %
 
 " CtrlP for fuzzy search
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|svn)$',
+    \ 'file': '\v\~$|\.(o|so|swp|pyc)$|tags',
+    \ }
+nmap ; :CtrlPBuffer<CR>
+nnoremap <leader>f :CtrlP<cr>                   " CtrlP search for files
+nnoremap <leader>. :CtrlPTag<cr>                " CtrlP search for tags
 
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
@@ -150,6 +158,9 @@ let tagbar_left = 1
 let indent_guides_start_level = 2
 let indent_guides_guide_size = 1
 
+" vim-airline
+set laststatus=2
+
 " python-mode
 let g:pymode_folding = 0
 let g:pymode_lint_cwindow = 0           " This lint slows vim down over time. Use plain pyflake
@@ -169,3 +180,8 @@ function! LoadCscope()
   endif
 endfunction
 au BufEnter /* call LoadCscope()
+
+" Local vim config
+if filereadable(glob("~/.vimrclocal"))
+    source ~/.vimrclocal
+endif
