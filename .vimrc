@@ -19,6 +19,7 @@ Plugin 'docunext/closetag.vim'
 Plugin 'bling/vim-airline'
 Plugin 'mhinz/vim-signify'
 Plugin 'tpope/vim-fugitive'
+Plugin 'editorconfig/editorconfig-vim'
 
 " Syntax plugins
 Plugin 'flazz/vim-colorschemes'
@@ -128,7 +129,7 @@ cmap w!! w !sudo tee >/dev/null %
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|svn)$',
-    \ 'file': '\v\~$|\.(o|so|swp|pyc)$|tags',
+    \ 'file': '\v\~$|\.(o|so|swp|pyc)$|tags|cscope.+$',
     \ }
 nmap ; :CtrlPBuffer<CR>
 nnoremap <leader>f :CtrlP<cr>                   " CtrlP search for files
