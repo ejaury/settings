@@ -129,7 +129,7 @@ cmap w!! w !sudo tee >/dev/null %
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|svn)$',
-    \ 'file': '\v\~$|\.(o|so|swp|pyc)$|tags|cscope.+$',
+    \ 'file': '\v\~$|\.(o|so|swp|pyc)$|tags$|cscope.+$',
     \ }
 nmap ; :CtrlPBuffer<CR>
 nnoremap <leader>f :CtrlP<cr>                   " CtrlP search for files
@@ -146,6 +146,12 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " Close preview window after unfocus
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" Syntastic
+" Passive filter for Python for now as it's too slow using pylint. Let
+" python-mode handle the linting with pyflakes.
+let g:syntastic_mode_map = { "mode": "active",
+                            \ "passive_filetypes": ["python"] }
 
 " Taglist 
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
