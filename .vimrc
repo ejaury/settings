@@ -21,6 +21,12 @@ Plugin 'mhinz/vim-signify'
 Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
 
+" Snippets
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+
 " Syntax plugins
 Plugin 'flazz/vim-colorschemes'
 Plugin 'klen/python-mode'
@@ -152,6 +158,11 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " python-mode handle the linting with pyflakes.
 let g:syntastic_mode_map = { "mode": "active",
                             \ "passive_filetypes": ["python"] }
+
+" SnipMate
+" Change default key because <TAB> is used for auto-completion (supertab)
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
 " Taglist 
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
