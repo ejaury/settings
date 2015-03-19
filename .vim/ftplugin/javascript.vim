@@ -4,8 +4,13 @@ if has('gui_running')
     " setting the colorscheme.
     hi ColorColumn guibg=#2C2D27
 else
-    "colorscheme wombat256
-    colorscheme darkburn
+    "Only set reset colorscheme when this JS file is the first file in the
+    "buffer. This is avoid unexpected change of colorscheme when opening
+    "another file with different type in the same Vim instance.
+    if g:colors_name != "darkburn" && bufnr('$') == 1
+        "colorscheme wombat256
+        colorscheme darkburn
+    endif
 endif
 
 " Visual mode maps
