@@ -1,0 +1,14 @@
+[user]
+	name = Edwin
+[push]
+	default = simple
+[core]
+	editor = vim
+[alias]
+    b = branch
+    checkpoint = !git stash; git stash apply
+    co = checkout
+    df = diff HEAD
+    s = status .
+    showfiles = show --name-status  # Show list of changed files
+    sl = stash list
