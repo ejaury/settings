@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Re-generate both CScope and Ctags db
+SCRIPT_PATH=$(dirname `which $0`)
+$SCRIPT_PATH/indexcscope $1
+$SCRIPT_PATH/indexctags $1

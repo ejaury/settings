@@ -1,0 +1,57 @@
+#!/bin/bash
+# Re-generate Cscope database
+# src:
+# http://stackoverflow.com/questions/934233/cscope-or-ctags-why-choose-one-over-the-other
+
+curpath=$1
+
+if [ -z $curpath ]
+then
+    # Look for either GUI or other C module root path
+    while :
+    do
+        curpath=`pwd`
+        if [ -e "manage.py" ] ||
+           [[ -d "../django" && -d "core" ]]
+        then
+            break
+        elif [ "$curpath" == "/" ]
+        then
+            echo "ERROR: CScope DB not found!"
+            exit 1
+        fi
+        cd ..
+    done
+else
+    if [ ! -d $curpath ]
+    then
+        echo "Path $curpath does not exist!"
+        exit 1
+    fi
+fi
+
+echo
+echo "=> Re-indexing code for Cscope for $curpath..."
+
+# Exclude third-party libs and kernel
+find . \( \
+    -name '*.py' \
+    -o -name '*.js'  \
+    -o -iname '*.[CH]' \
+    -o -name '*.cpp' \
+    -o -name '*.cc' \
+    -o -name '*.c'  \
+    -o -name '*.h'  \
+    \) \
+    -not -path "./linux*" \
+    -not -path "./kernel*" \
+    -not -path "./busybox*" \
+    -not -path "*/static/cache/js/*" \
+    > cscope.files
+
+# -b: just build
+# -q: create inverted index
+cscope -b -q
+rm cscope.files
+
+echo "===> Index stored in `pwd`"

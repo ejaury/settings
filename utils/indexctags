@@ -1,0 +1,57 @@
+#!/bin/bash
+# Re-generate Ctags database
+
+echo
+echo "=> Re-indexing code for Ctags..."
+
+curpath=$1
+
+if [ -z $curpath ]
+then
+    # Look for either GUI or other C module root path
+    while :
+    do
+        curpath=`pwd`
+        if [ -e "manage.py" ] ||
+           [[ -d "../django" && -d "core" ]] ||
+           [ -d "admin_auth" ] ||
+           [ -d "sysapi" ]
+        then
+            break
+        elif [ "$curpath" == "/" ]
+        then
+            echo "ERROR: Ctags DB not found!"
+            exit 1
+        fi
+        cd ..
+    done
+else
+    if [ ! -d $curpath ]
+    then
+        echo "Path $curpath does not exist!"
+        exit 1
+    fi
+
+    # Convert to absolute path
+    if [[ $curpath == "." ]]
+    then
+        curpath=`pwd`
+    fi
+fi
+
+
+if [ "$curpath" == "/" ]
+then
+    echo "ERROR: Ctags DB not found!"
+    exit 1
+elif [ -e "manage.py" ] || [[ -d "../django" && -d "core" ]] || [[ $curpath == *src/web* ]]
+then
+    # GUI project
+    ctags -R --languages=python,js --exclude=node_modules --exclude=*/static/cache/* --exclude=*.min.js .
+else
+    # C project
+    ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+fi
+
+
+echo "===> Index stored in `pwd`"

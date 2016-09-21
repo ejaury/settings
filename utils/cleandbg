@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# A script to check pre-commit code for debugging code
+
+TMP=/tmp/svndiff.tmp
+
+if [ -d ".svn" ]
+then
+    svn diff > $TMP
+else
+    git diff HEAD . > $TMP
+fi
+
+dbg_words="
+    pdb
+    pudb
+    print
+    console\.
+    #([[:space:]]{0}|[[:space:]]{2,})[a-zA-Z0-9]+
+    REMOVE
+    TODO
+    XXX
+    \?\?\?
+    '''
+    /\*
+    //
+    \{%[[:space:]]+comment
+    \{#
+"
+
+for w in $dbg_words
+do
+    grep -E "$w" --color $TMP
+done
+
+rm $TMP
