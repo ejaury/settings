@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+# This script is used to solve high CPU load issue in OSX upon resuming from
+# sleep.
+# See:
+# https://discussions.apple.com/thread/7596292?start=0&tstart=0
+# https://apple.stackexchange.com/questions/175361/powerd-process-uses-a-lot-of-cpu
+sudo pkill -HUP powerd
