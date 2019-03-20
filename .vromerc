@@ -1,0 +1,4 @@
+" Remove key mapping in normal mode, bring back normal search (vrome search is too slow):
+" OSX (for Windows use <C-f>)
+unmap <M-f>
+
